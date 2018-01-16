@@ -11,9 +11,9 @@ inputs:
 - name: concourse-tasks
 
 run:
-  path: concourse-tasks/tasks/smoke-tests/task
+  path: concourse-tasks/tasks/run-errand/task
 
 params:
   BBL_STATE_DIR: bbl-state
   DEPLOYMENT_NAME: cf
-  ERRAND_NAME: smoke-tests
+  ERRAND_NAME: 
