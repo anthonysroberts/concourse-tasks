@@ -9,6 +9,7 @@ image_resource:
 inputs:
 - name: env-repo
 - name: concourse-tasks
+- name: cf-deployment-concourse-tasks
 
 run:
   path: concourse-tasks/tasks/run-errand/task
