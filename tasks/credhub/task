@@ -1,4 +1,6 @@
 #!/bin/sh
 
-ls -al 
-ls -al env-repo/bbl-state/vars/director-vars-store.yml
+VAR_STORE=env-repo/bbl-state/vars/director-vars-store.yml
+bosh int ${VAR_STORE} --path /credhub_tls/certificate
+bosh int ${VAR_STORE} --path /credhub_cli_password
+
