@@ -1,4 +1,4 @@
 #!/bin/sh
 
-ls -la 
-ls -al bbl-state/vars/director-vars-store.yml
+ls -al 
+ls -al env-repo/bbl-state/vars/director-vars-store.yml
