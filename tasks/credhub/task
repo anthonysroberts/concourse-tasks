@@ -6,3 +6,5 @@ bosh int ${VAR_STORE} --path /credhub_cli_password
 
 CREDHUB_API="https://credhub.${SYSTEM_DOMAIN}:8844/"
 echo ${CREDHUB_API}
+
+credhub -v
