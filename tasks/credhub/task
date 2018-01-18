@@ -1,18 +1,20 @@
 #!/bin/sh
 
 VAR_STORE=env-repo/bbl-state/vars/director-vars-store.yml
-bosh int ${VAR_STORE} --path /credhub_tls/certificate
-bosh int ${VAR_STORE} --path /credhub_cli_password
+CREDHUB_PASSWORD=$(bosh int ${VAR_STORE} --path /credhub_cli_password)
 
-DEPLOYMENT_NAME=$(bosh int ${VAR_STORE} --path /name)
-echo ${DEPLOYMENT_NAME}
+echo ${CREDHUB_PASSWORD}
 
 CREDHUB_API="https://credhub.${SYSTEM_DOMAIN}:8844/"
 echo ${CREDHUB_API}
 
-terraform --version
-
 STATE=env-repo/bbl-state/vars/terraform.tfstate
 terraform output -state=${STATE}
 
-credhub --version
+bosh int ${VAR_STORE} --path /credhub_tls/certificate > credhub.cert
+bosh int ${VAR_STORE} --path /uaa_ssl/certificate > uaa.cert
+
+credhub api --server ${CREDHUB_API} --ca-cert=credhub.cert --ca-cert=uaa.cert
+credhub login -u credhub-cli -p ${CREDHUB_PASSWORD}
+
+credhub show
