@@ -4,6 +4,10 @@ VAR_STORE=env-repo/bbl-state/vars/director-vars-store.yml
 bosh int ${VAR_STORE} --path /credhub_tls/certificate
 bosh int ${VAR_STORE} --path /credhub_cli_password
 
+DEPLOYMENT_NAME=$(bosh int ${VAR_STORE} --path /name)
+echo ${DEPLOYMENT_NAME}
+
+
 CREDHUB_API="https://credhub.${SYSTEM_DOMAIN}:8844/"
 echo ${CREDHUB_API}
 
