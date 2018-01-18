@@ -5,7 +5,7 @@ CREDHUB_PASSWORD=$(bosh int ${VAR_STORE} --path /credhub_cli_password)
 
 echo ${CREDHUB_PASSWORD}
 
-CREDHUB_API="https://credhub.${SYSTEM_DOMAIN}:8844/"
+CREDHUB_API="${CREDHUB_SERVER}"
 echo ${CREDHUB_API}
 
 STATE=env-repo/bbl-state/vars/terraform.tfstate
