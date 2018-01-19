@@ -14,5 +14,5 @@ run:
   path: concourse-tasks/tasks/credhub/task
 
 params:
-  SYSTEM_DOMAIN:
+  BBL_STATE_DIR: bbl-state
   CREDHUB_SERVER:
