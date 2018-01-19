@@ -14,7 +14,10 @@ terraform output -state=${STATE}
 bosh int ${VAR_STORE} --path /credhub_tls/certificate > credhub.cert
 bosh int ${VAR_STORE} --path /uaa_ssl/certificate > uaa.cert
 
-credhub api --server ${CREDHUB_API} --ca-cert=credhub.cert --ca-cert=uaa.cert
+cat credhub.cert
+cat uaa.cert
+
+credhub api --server ${CREDHUB_API} --ca-cert=credhub.cert --ca-cert=uaa.cert --skip-tls-validation
 credhub login -u credhub-cli -p ${CREDHUB_PASSWORD}
 
 credhub show
