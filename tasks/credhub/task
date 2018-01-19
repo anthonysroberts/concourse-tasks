@@ -14,8 +14,11 @@ terraform output -state=${STATE}
 bosh int ${VAR_STORE} --path /credhub_tls/certificate > credhub.cert
 bosh int ${VAR_STORE} --path /uaa_ssl/certificate > uaa.cert
 
-bbl print-env
-#eval "$(bbl print-env)"
+pushd ${BBL_STATE_DIR}
+  bbl print-env
+  eval "$(bbl print-env)"
+popd
+
 credhub api --server ${CREDHUB_API} --ca-cert=uaa.cert --ca-cert=credhub.cert
 credhub login -u credhub-cli -p ${CREDHUB_PASSWORD}
 
