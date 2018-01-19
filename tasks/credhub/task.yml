@@ -14,5 +14,5 @@ run:
   path: concourse-tasks/tasks/credhub/task
 
 params:
-  BBL_STATE_DIR: env-repo/bbl-state
-  CREDHUB_SERVER:
+  BBL_STATE_DIR: bbl-state
+  CREDHUB_SERVER: https://10.0.0.6:8844/
