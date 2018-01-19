@@ -1,5 +1,12 @@
 #!/bin/sh
 
+function setup_bosh_env_vars() {
+  set +ux
+  pushd env-repo/"${BBL_STATE_DIR}"
+    eval "$(bbl print-env)"
+  popd
+  set -ux
+}
 
 ls ${BBL_STATE_DIR}
 VAR_STORE=env-repo/bbl-state/vars/director-vars-store.yml
@@ -14,10 +21,7 @@ terraform output -state=${STATE}
 bosh int ${VAR_STORE} --path /credhub_tls/certificate > credhub.cert
 bosh int ${VAR_STORE} --path /uaa_ssl/certificate > uaa.cert
 
-pushd ${BBL_STATE_DIR}
-  bbl print-env
-  eval "$(bbl print-env)"
-popd
+setup_bosh_env_vars
 
 credhub api --server ${CREDHUB_API} --ca-cert=uaa.cert --ca-cert=credhub.cert
 credhub login -u credhub-cli -p ${CREDHUB_PASSWORD}
