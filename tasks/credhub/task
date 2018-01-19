@@ -1,12 +1,12 @@
 #!/bin/sh
 
+
+ls ${BBL_STATE_DIR}
 VAR_STORE=env-repo/bbl-state/vars/director-vars-store.yml
 CREDHUB_PASSWORD=$(bosh int ${VAR_STORE} --path /credhub_cli_password)
 
-echo ${CREDHUB_PASSWORD}
-
 CREDHUB_API="${CREDHUB_SERVER}"
-echo ${CREDHUB_API}
+echo "Connecting to ${CREDHUB_API}"
 
 STATE=env-repo/bbl-state/vars/terraform.tfstate
 terraform output -state=${STATE}
