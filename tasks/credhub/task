@@ -17,6 +17,8 @@ bosh int ${VAR_STORE} --path /uaa_ssl/certificate > uaa.cert
 cat credhub.cert
 cat uaa.cert
 
+bbl print-env
+#eval "$(bbl print-env)"
 credhub api --server ${CREDHUB_API} --ca-cert=uaa.cert --ca-cert=credhub.cert
 credhub login -u credhub-cli -p ${CREDHUB_PASSWORD}
 
