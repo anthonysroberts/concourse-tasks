@@ -17,14 +17,13 @@ function setup_bosh_env_vars() {
 
 trap close_bbl_ssh_connection EXIT
 
-ls ${BBL_STATE_DIR}
-VAR_STORE=env-repo/bbl-state/vars/director-vars-store.yml
+VAR_STORE=env-repo/${BBL_STATE_DIR}/vars/director-vars-store.yml
 CREDHUB_PASSWORD=$(bosh int ${VAR_STORE} --path /credhub_cli_password)
 
 CREDHUB_API="${CREDHUB_SERVER}"
 echo "Connecting to ${CREDHUB_API}"
 
-STATE=env-repo/bbl-state/vars/terraform.tfstate
+STATE=env-repo/${BBL_STATE_DIR}/vars/terraform.tfstate
 terraform output -state=${STATE}
 
 bosh int ${VAR_STORE} --path /credhub_tls/certificate > credhub.cert
