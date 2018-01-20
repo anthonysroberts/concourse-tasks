@@ -44,42 +44,20 @@ ROUTINGAPI_PASSWORD=$(terraform output -state=${STATE} routing_api-password)
 SILKCONTROLLER_PASSWORD=$(terraform output -state=${STATE} silk_controller-password)
 LOCKET_PASSWORD=$(terraform output -state=${STATE} locket-password)
 
-credhub set -t value -n /bosh-${ENV}/cf/external_database_type -v 'mysql'
-
 credhub set -t value -n /bosh-${ENV}/cf/external_uaa_database_address -v "${CF_HOST}"
 credhub set -t password -n /bosh-${ENV}/cf/external_uaa_database_password -w "${UAA_PASSWORD}"
-credhub set -t value -n /bosh-${ENV}/cf/external_uaa_database_name -v 'uaa_db'
-credhub set -t value -n /bosh-${ENV}/cf/external_uaa_database_username -v 'uaa'
-
 credhub set -t value -n /bosh-${ENV}/cf/external_bbs_database_address -v "${CF_HOST}"
 credhub set -t password -n /bosh-${ENV}/cf/external_bbs_database_password -w "${BBS_PASSWORD}"
-credhub set -t value -n /bosh-${ENV}/cf/external_bbs_database_name -v 'bbs_db'
-credhub set -t value -n /bosh-${ENV}/cf/external_bbs_database_username -v 'bbs'
-
 credhub set -t value -n /bosh-${ENV}/cf/external_cc_database_address -v "${CF_HOST}"
 credhub set -t password -n /bosh-${ENV}/cf/external_cc_database_password -w "${CC_PASSWORD}"
-credhub set -t value -n /bosh-${ENV}/cf/external_cc_database_name -v 'cc_db'
-credhub set -t value -n /bosh-${ENV}/cf/external_cc_database_username -v 'cc'
-
 credhub set -t value -n /bosh-${ENV}/cf/external_routing_api_database_address -v "${CF_HOST}"
 credhub set -t password -n /bosh-${ENV}/cf/external_routing_api_database_password -w "${ROUTINGAPI_PASSWORD}"
-credhub set -t value -n /bosh-${ENV}/cf/external_routing_api_database_name -v 'routing_api_db'
-credhub set -t value -n /bosh-${ENV}/cf/external_routing_api_database_username -v 'routing_api'
-
 credhub set -t value -n /bosh-${ENV}/cf/external_policy_server_database_address -v "${CF_HOST}"
 credhub set -t password -n /bosh-${ENV}/cf/external_policy_server_database_password -w "${POLICYSERVER_PASSWORD}"
-credhub set -t value -n /bosh-${ENV}/cf/external_policy_server_database_name -v 'policy_server_db'
-credhub set -t value -n /bosh-${ENV}/cf/external_policy_server_database_username -v 'policy_server'
-
 credhub set -t value -n /bosh-${ENV}/cf/external_silk_controller_database_address -v "${CF_HOST}"
 credhub set -t password -n /bosh-${ENV}/cf/external_silk_controller_database_password -w "${SILKCONTROLLER_PASSWORD}"
-credhub set -t value -n /bosh-${ENV}/cf/external_silk_controller_database_name -v 'silk_controller_db'
-credhub set -t value -n /bosh-${ENV}/cf/external_silk_controller_database_username -v 'silk_controller'
-
 credhub set -t value -n /bosh-${ENV}/cf/external_locket_database_address -v "${CF_HOST}"
 credhub set -t password -n /bosh-${ENV}/cf/external_locket_database_password -w "${LOCKET_PASSWORD}"
-credhub set -t value -n /bosh-${ENV}/cf/external_locket_database_name -v 'locket_db'
-credhub set -t value -n /bosh-${ENV}/cf/external_locket_database_username -v 'locket'
 
 credhub set -t value -n /bosh-${ENV}/cf/app_package_directory_key -v "bosh-${ENV}-package"
 credhub set -t value -n /bosh-${ENV}/cf/buildpack_directory_key -v "bosh-${ENV}-buildpack"
