@@ -59,12 +59,5 @@ credhub set -t password -n /bosh-${ENV}/cf/external_silk_controller_database_pas
 credhub set -t value -n /bosh-${ENV}/cf/external_locket_database_address -v "${CF_HOST}"
 credhub set -t password -n /bosh-${ENV}/cf/external_locket_database_password -w "${LOCKET_PASSWORD}"
 
-credhub set -t value -n /bosh-${ENV}/cf/app_package_directory_key -v "bosh-${ENV}-package"
-credhub set -t value -n /bosh-${ENV}/cf/buildpack_directory_key -v "bosh-${ENV}-buildpack"
-credhub set -t value -n /bosh-${ENV}/cf/droplet_directory_key -v "bosh-${ENV}-droplet"
-credhub set -t value -n /bosh-${ENV}/cf/resource_directory_key -v "bosh-${ENV}-resource"
-
-#credhub set -t password -n /bosh-${ENV}/cf/blobstore_access_key_id -w ''
-#credhub set -t password -n /bosh-${ENV}/cf/blobstore_secret_access_key -w ''
-
-credhub find
+credhub set -t password -n /bosh-${ENV}/cf/blobstore_access_key_id -w "${BLOBSTORE_ACCESS_KEY_ID}"
+credhub set -t password -n /bosh-${ENV}/cf/blobstore_secret_access_key -w "${BLOBSTORE_SECRET_ACCESS_KEY}"
