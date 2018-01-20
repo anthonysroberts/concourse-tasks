@@ -31,9 +31,12 @@ bosh int ${VAR_STORE} --path /uaa_ssl/certificate > uaa.cert
 
 export https_proxy=${BOSH_ALL_PROXY}
 
+set +x
 credhub api --server ${CREDHUB_SERVER} --ca-cert=uaa.cert --ca-cert=credhub.cert
 credhub login -u ${CREDHUB_USER} -p ${CREDHUB_PASSWORD}
+set -x
 
+set +x
 CF_HOST=$(terraform output -state=${STATE} cf_db_host)
 UAA_PASSWORD=$(terraform output -state=${STATE} uaa-password)
 BBS_PASSWORD=$(terraform output -state=${STATE} bbs-password)
@@ -42,7 +45,9 @@ POLICYSERVER_PASSWORD=$(terraform output -state=${STATE} policy_server-password)
 ROUTINGAPI_PASSWORD=$(terraform output -state=${STATE} routing_api-password)
 SILKCONTROLLER_PASSWORD=$(terraform output -state=${STATE} silk_controller-password)
 LOCKET_PASSWORD=$(terraform output -state=${STATE} locket-password)
+set -x
 
+set +x
 credhub set -t value -n /bosh-${ENV}/cf/external_uaa_database_address -v "${CF_HOST}"
 credhub set -t password -n /bosh-${ENV}/cf/external_uaa_database_password -w "${UAA_PASSWORD}"
 credhub set -t value -n /bosh-${ENV}/cf/external_bbs_database_address -v "${CF_HOST}"
@@ -60,3 +65,4 @@ credhub set -t password -n /bosh-${ENV}/cf/external_locket_database_password -w 
 
 credhub set -t password -n /bosh-${ENV}/cf/blobstore_access_key_id -w "${BLOBSTORE_ACCESS_KEY_ID}"
 credhub set -t password -n /bosh-${ENV}/cf/blobstore_secret_access_key -w "${BLOBSTORE_SECRET_ACCESS_KEY}"
+set -x
