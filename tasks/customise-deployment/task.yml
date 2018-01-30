@@ -1,0 +1,21 @@
+---
+platform: linux
+
+image_resource:
+  type: docker-image
+  source:
+    repository: relintdockerhubpushbot/bosh-cli
+
+inputs:
+- name: env-repo
+- name: concourse-tasks
+- name: cf-deployment-concourse-tasks
+
+run:
+  path: concourse-tasks/tasks/customise-deployment/task
+
+params:
+  BBL_STATE_DIR: bbl-state
+  DEPLOYMENT_NAME: cf
+  TERRAFORM_CUSTOMISATIONS:
+  CLOUDCONFIG_CUSTOMISATIONS:
