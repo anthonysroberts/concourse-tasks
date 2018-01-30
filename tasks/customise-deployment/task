@@ -29,10 +29,24 @@ function create_resources() {
   popd
 }
 
+function set_git_config() {
+  if [ -z "${GIT_COMMIT_USERNAME}" ]; then
+    GIT_COMMIT_USERNAME="CI Bot"
+  fi
+
+  if [ -z "${GIT_COMMIT_EMAIL}" ]; then
+    GIT_COMMIT_EMAIL="cf-release-integration@pivotal.io"
+  fi
+
+  git config user.name "${GIT_COMMIT_USERNAME}"
+  git config user.email "${GIT_COMMIT_EMAIL}"
+}
+
 function main() {
   local root_dir
   root_dir="${1}"
   check_input_params
+  set_git_config
   create_resources
 }
 
