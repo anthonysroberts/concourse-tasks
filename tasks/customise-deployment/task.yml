@@ -9,6 +9,8 @@ image_resource:
 inputs:
 - name: env-repo
 - name: concourse-tasks
+- name: terraform-customisations
+- name: cloud-config-customisations
 
 outputs:
 - name: updated-env-repo

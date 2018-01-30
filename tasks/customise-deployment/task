@@ -15,7 +15,7 @@ function create_resources() {
     mkdir -p terraform
     if [ -n "${TERRAFORM_CUSTOMISATIONS}" ]; then
       for CUSTOMISATION in ${TERRAFORM_CUSTOMISATIONS}; do
-        cp ${root_dir}/bbl-customisations/${CUSTOMISATION} terraform/
+        cp ${root_dir}/terraform-customisations/${CUSTOMISATION} terraform/
       done
     fi 
 
