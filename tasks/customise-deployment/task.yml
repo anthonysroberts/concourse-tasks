@@ -10,11 +10,13 @@ inputs:
 - name: env-repo
 - name: concourse-tasks
 
+outputs:
+- name: updated-env-repo
+
 run:
   path: concourse-tasks/tasks/customise-deployment/task
 
 params:
   BBL_STATE_DIR: bbl-state
-  DEPLOYMENT_NAME: cf
   TERRAFORM_CUSTOMISATIONS:
   CLOUDCONFIG_CUSTOMISATIONS:
