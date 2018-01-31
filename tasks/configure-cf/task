@@ -1,0 +1,54 @@
+#!/bin/bash -eux
+
+function close_bbl_ssh_connection() {
+  # Kill all ssh connections on exit.
+  # This is needed so that tasks using bbl print-env in a credhub environment
+  # don't hang after the script is finished.
+  pkill ssh || true
+}
+
+function setup_bosh_env_vars() {
+  set +ux
+  pushd env-repo/"${BBL_STATE_DIR}"
+    bbl print-env
+    eval "$(bbl print-env)"
+  popd
+  set -ux
+}
+
+function login_to_credhub() {
+  set +x
+  echo "Connecting to ${CREDHUB_SERVER}"
+  export https_proxy=${BOSH_ALL_PROXY}
+  credhub api --server ${CREDHUB_SERVER} --ca-cert=uaa.cert --ca-cert=credhub.cert
+  credhub login -u ${CREDHUB_USER} -p ${CREDHUB_PASSWORD}
+  set -x
+}
+
+function get_credhub_login_details() {
+  VAR_STORE=env-repo/${BBL_STATE_DIR}/vars/director-vars-store.yml
+  STATE=env-repo/${BBL_STATE_DIR}/vars/terraform.tfstate
+  bosh int ${VAR_STORE} --path /credhub_tls/certificate > credhub.cert
+  bosh int ${VAR_STORE} --path /uaa_ssl/certificate > uaa.cert
+}
+
+function get_cf_login_details() {
+  #set +x
+  CF_ADMIN_PASSWORD=$(credhub get -n /bosh-${ENV}/cf/cf_admin_password) > /dev/null
+  echo ${CF_ADMIN_PASSWORD}
+  echo "cf api https://api.${SYSTEM_DOMAIN}"
+  echo "cf login -u admin -p ${CF_ADMIN_PASSWORD}"
+  echo "cf "
+  #set -x
+}
+
+function main() {
+  setup_bosh_env_vars
+  get_credhub_login_details
+  login_to_credhub
+  set_credhub_config
+}
+
+trap close_bbl_ssh_connection EXIT
+main
+
