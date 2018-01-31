@@ -15,6 +15,5 @@ run:
 
 params:
   BBL_STATE_DIR: bbl-state
-  CREDHUB_SERVER: https://10.0.0.6:8844/
   ENV:
   SYSTEM_DOMAIN:
