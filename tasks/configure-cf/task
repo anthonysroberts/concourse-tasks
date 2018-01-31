@@ -33,14 +33,22 @@ function get_credhub_login_details() {
 
 function get_cf_login_details() {
   #set +x
-  CF_ADMIN_PASSWORD=$(credhub get -n /bosh-${ENV}/cf/cf_admin_password | grep 'value:' | sed -e 's/value: //') > /dev/null
+  CF_ADMIN_PASSWORD=$(credhub get -n /bosh-${ENV}/cf/cf_admin_password --output-json | jq -r  '.value') > /dev/null
   
   close_bbl_ssh_connection
   unset https_proxy
 
-  cf api https://api.${SYSTEM_DOMAIN}
+  cf api https://api.${SYSTEM_DOMAIN} --skip-ssl-validation
   cf login -u admin -p ${CF_ADMIN_PASSWORD}
-  cf spaces
+
+  cf create-org ${CF_ORG}
+  cf create-user ${CF_USER} ${CF_PASSWORD}
+  
+  cf set-org-role ${CF_USER} ${CF_ORG} OrgManager
+
+  #cf create-domain servicedeliverygcp@monitise.com ${GCP_PROJECT}.${DOMAIN}
+  cf update-quota default -m ${CF_QUOTA}
+
   #set -x
 }
 

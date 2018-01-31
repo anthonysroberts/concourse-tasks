@@ -17,3 +17,7 @@ params:
   BBL_STATE_DIR: bbl-state
   ENV:
   SYSTEM_DOMAIN:
+  CF_ORG:
+  CF_USER:
+  CF_PASSWORD:
+  CF_QUOTA:
