@@ -11,7 +11,7 @@ inputs:
 - name: concourse-tasks
 
 run:
-  path: concourse-tasks/tasks/credhub/task
+  path: concourse-tasks/tasks/configure-cf/task
 
 params:
   BBL_STATE_DIR: bbl-state
