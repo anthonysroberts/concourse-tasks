@@ -46,7 +46,7 @@ function main() {
   setup_bosh_env_vars
   get_credhub_login_details
   login_to_credhub
-  set_credhub_config
+  get_cf_login_details
 }
 
 trap close_bbl_ssh_connection EXIT
