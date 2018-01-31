@@ -34,6 +34,8 @@ function get_credhub_login_details() {
 function get_cf_login_details() {
   #set +x
   CF_ADMIN_PASSWORD=$(credhub get -n /bosh-${ENV}/cf/cf_admin_password | grep 'value:' | sed -e 's/value: //') > /dev/null
+  close_bbl_ssh_connection
+
   cf api https://api.${SYSTEM_DOMAIN}
   cf login -u admin -p ${CF_ADMIN_PASSWORD}
   cf spaces
