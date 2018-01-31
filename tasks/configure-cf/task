@@ -10,7 +10,6 @@ function close_bbl_ssh_connection() {
 function setup_bosh_env_vars() {
   set +ux
   pushd env-repo/"${BBL_STATE_DIR}"
-    bbl print-env
     eval "$(bbl print-env)"
   popd
   set -ux
@@ -34,7 +33,7 @@ function get_credhub_login_details() {
 
 function get_cf_login_details() {
   #set +x
-  CF_ADMIN_PASSWORD=$(credhub get -n /bosh-${ENV}/cf/cf_admin_password) > /dev/null
+  CF_ADMIN_PASSWORD=$(credhub get -n /bosh-${ENV}/cf/cf_admin_password | grep 'value:' | sed -e 's/value: //') > /dev/null
   echo ${CF_ADMIN_PASSWORD}
   echo "cf api https://api.${SYSTEM_DOMAIN}"
   echo "cf login -u admin -p ${CF_ADMIN_PASSWORD}"
