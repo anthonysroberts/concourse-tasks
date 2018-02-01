@@ -62,6 +62,10 @@ function set_credhub_config() {
   credhub set -t password -n /bosh-${ENV}/cf/blobstore_access_key_id -w "${BLOBSTORE_ACCESS_KEY_ID}" > /dev/null
   credhub set -t password -n /bosh-${ENV}/cf/blobstore_secret_access_key -w "${BLOBSTORE_SECRET_ACCESS_KEY}" > /dev/null
   set -x
+
+  if [ $DEBUG ]; then
+    credhub find
+  fi
 }
 
 trap close_bbl_ssh_connection EXIT

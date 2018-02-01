@@ -16,3 +16,4 @@ run:
 params:
   BBL_STATE_DIR: bbl-state
   ENV:
+  DEBUG: false
