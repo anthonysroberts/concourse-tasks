@@ -41,6 +41,7 @@ function get_terraform_outputs() {
   LOCKET_PASSWORD=$(terraform output -state=${STATE} locket-password)
   ENV_ID=$(terraform output -state=${STATE} bosh_director_tag_name | sed -e 's/-bosh-director//')
   set -x
+  echo ${ENV_ID}
 }
 
 function set_credhub_config() {
