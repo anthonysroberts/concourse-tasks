@@ -39,11 +39,13 @@ function get_terraform_outputs() {
   ROUTINGAPI_PASSWORD=$(terraform output -state=${STATE} routing_api-password)
   SILKCONTROLLER_PASSWORD=$(terraform output -state=${STATE} silk_controller-password)
   LOCKET_PASSWORD=$(terraform output -state=${STATE} locket-password)
+  ENV_ID=$(terraform output -state=${STATE} bosh_director_tag_name | sed -e 's/-bosh-director//')
   set -x
 }
 
 function set_credhub_config() {
   set +x
+  credhub set -t value -n /bosh-${ENV}/cf/env_id -v "${ENV_ID}" > /dev/null
   credhub set -t value -n /bosh-${ENV}/cf/external_uaa_database_address -v "${CF_HOST}" > /dev/null
   credhub set -t password -n /bosh-${ENV}/cf/external_uaa_database_password -w "${UAA_PASSWORD}" > /dev/null
   credhub set -t value -n /bosh-${ENV}/cf/external_bbs_database_address -v "${CF_HOST}" > /dev/null
