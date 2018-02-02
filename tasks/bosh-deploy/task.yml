@@ -17,4 +17,5 @@ run:
 
 params:
   BBL_STATE_DIR: bbl-state
-  MANIFEST_FILE: 
+  MANIFEST_FILE:
+  NAME:

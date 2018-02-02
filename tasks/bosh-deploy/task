@@ -18,6 +18,7 @@ function close_bbl_ssh_connection() {
 function deploy() {
   bosh \
     -n \
+    -d ${NAME} \
     deploy \
     bosh-repo/${MANIFEST_FILE}
   set -x
