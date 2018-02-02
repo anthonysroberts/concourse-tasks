@@ -1,0 +1,34 @@
+#!/bin/bash -eux
+
+function setup_bosh_env_vars() {
+  set +ux
+  pushd env-repo/"${BBL_STATE_DIR}"
+    eval "$(bbl print-env)"
+  popd
+  set -ux
+}
+
+function close_bbl_ssh_connection() {
+  # Kill all ssh connections on exit.
+  # This is needed so that tasks using bbl print-env in a credhub environment
+  # don't hang after the script is finished.
+  pkill ssh || true
+}
+
+function deploy() {
+  bosh \
+    -n \
+    deploy \
+    bosh-repo/${MANIFEST_FILE}
+  set -x
+}
+
+function main() {
+  setup_bosh_env_vars
+  deploy
+}
+
+trap close_bbl_ssh_connection EXIT
+
+main ${PWD}
+
