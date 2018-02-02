@@ -1,0 +1,85 @@
+#!/bin/bash
+set -eux
+
+function setup_bosh_env_vars() {
+  set +ux
+  pushd env-repo/"${BBL_STATE_DIR}"
+    eval "$(bbl print-env)"
+  popd
+  set -ux
+}
+
+function close_bbl_ssh_connection() {
+  # Kill all ssh connections on exit.
+  # This is needed so that tasks using bbl print-env in a credhub environment
+  # don't hang after the script is finished.
+  pkill ssh || true
+}
+
+function upload_stemcell() {
+  # Read potentially variable stemcell paramaters out of cf-deployment with bosh
+  local os
+  os=$(bosh interpolate --path=/stemcells/alias=default/os bosh-repo/${MANIFEST_FILE})
+  local version
+  version=$(bosh interpolate --path=/stemcells/alias=default/version bosh-repo/${MANIFEST_FILE})
+
+  # Hardcode a couple of stable stemcell paramaters
+  local stemcells_url
+  stemcells_url="https://bosh.io/d/stemcells"
+  local bosh_agent
+  bosh_agent="go_agent"
+
+  # Ask bosh if it already has our OS / version stemcell combination
+  # As of this writing, the new bosh cli doesn't have --skip-if-exists
+  set +e
+  local existing_stemcell
+  existing_stemcell=$(bosh stemcells | grep "${os}" | awk '{print $2}' | tr -d "\*" | grep ^"${version}"$ )
+  set -e
+
+  local stemcell_name
+  stemcell_name="bosh"
+
+  if [ "$INFRASTRUCTURE" = "aws" ]; then
+    stemcell_name="${stemcell_name}-aws-xen-hvm"
+  elif [ "$INFRASTRUCTURE" = "google" ]; then
+    stemcell_name="${stemcell_name}-google-kvm"
+  elif [ "$INFRASTRUCTURE" = "boshlite" ]; then
+    stemcell_name="${stemcell_name}-warden-boshlite"
+  elif [ "$INFRASTRUCTURE" = "bosh-lite" ]; then
+    stemcell_name="${stemcell_name}-warden-boshlite"
+  elif [ "$INFRASTRUCTURE" = "vsphere" ]; then
+    stemcell_name="${stemcell_name}-vsphere-esxi"
+  fi
+
+  stemcell_name="${stemcell_name}-${os}-${bosh_agent}"
+  if [ "$version" = "latest" ]; then
+    full_stemcell_url="${stemcells_url}/${stemcell_name}"
+  else
+    full_stemcell_url="${stemcells_url}/${stemcell_name}?v=${version}"
+  fi
+
+  # If bosh already has our stemcell, exit 0
+  if [ "${existing_stemcell}" ]; then
+    echo "Task bosh-upload-stemcell-from-release:"
+    echo "Stemcell '${stemcell_name}/${version}' already exists.  Exiting..."
+    return
+  fi
+
+  # ... otherwise, begin the upload process
+  bosh \
+    -n \
+    upload-stemcell \
+    "${full_stemcell_url}"
+  set -x
+}
+
+function main() {
+  setup_bosh_env_vars
+  upload_stemcell
+  close_bbl_ssh_connection
+}
+
+trap close_bbl_ssh_connection EXIT
+
+main ${PWD}
+
