@@ -8,7 +8,7 @@ image_resource:
     tag: v4.10.0
 
 inputs:
-- name: cf-deployment-concourse-tasks  # - This repo
+- name: concourse-tasks  # - This repo
 - name: bosh-repo
 - name: env-repo  # - The env repo containing the Director's bbl state dir
 

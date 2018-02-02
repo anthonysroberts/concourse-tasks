@@ -1,5 +1,4 @@
-#!/bin/bash
-set -eux
+#!/bin/bash -eux
 
 function setup_bosh_env_vars() {
   set +ux
@@ -76,7 +75,6 @@ function upload_stemcell() {
 function main() {
   setup_bosh_env_vars
   upload_stemcell
-  close_bbl_ssh_connection
 }
 
 trap close_bbl_ssh_connection EXIT
