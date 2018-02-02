@@ -1,10 +1,10 @@
 #!/bin/bash -exu
 
 function check_input_params() {
-  #if [ -z "$BBL_STATE_DIR" ]; then
-  #  echo "BBL_STATE_DIR has not been set"
-  #  exit 1
-  #fi
+  if [ -z "$NAME" ]; then
+    echo "NAME has not been set"
+    exit 1
+  fi
 }
 
 function create_release() {
