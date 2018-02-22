@@ -16,5 +16,6 @@ run:
 
 params:
   BBL_STATE_DIR: bbl-state
+  ENV:
   STACKDRIVER_PROJECT:
   STACKDRIVER_ACCOUNT_KEY:
