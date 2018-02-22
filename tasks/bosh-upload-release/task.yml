@@ -9,7 +9,6 @@ image_resource:
 
 inputs:
 - name: concourse-tasks  # - This repo
-- name: bosh-releases
 - name: env-repo  # - The env repo containing the Director's bbl state dir
 
 run:
