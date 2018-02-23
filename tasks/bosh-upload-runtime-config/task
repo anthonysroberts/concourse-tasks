@@ -15,17 +15,17 @@ function close_bbl_ssh_connection() {
   pkill ssh || true
 }
 
-function upload_runtime_config() {
+function update_runtime_config() {
   bosh \
     -n \
-    upload-runtime-config \
+    update-runtime-config \
     ops-files/${RUNTIME_CONFIG}
   set -x
 }
 
 function main() {
   setup_bosh_env_vars
-  upload_runtime_config
+  update_runtime_config
 }
 
 trap close_bbl_ssh_connection EXIT
