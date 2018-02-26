@@ -61,9 +61,6 @@ function set_credhub_config() {
   credhub set -t password -n /bosh-${ENV}/cf/external_silk_controller_database_password -w "${SILKCONTROLLER_PASSWORD}" > /dev/null
   credhub set -t value -n /bosh-${ENV}/cf/external_locket_database_address -v "${CF_HOST}" > /dev/null
   credhub set -t password -n /bosh-${ENV}/cf/external_locket_database_password -w "${LOCKET_PASSWORD}" > /dev/null
-
-  credhub set -t password -n /bosh-${ENV}/cf/blobstore_access_key_id -w "${BLOBSTORE_ACCESS_KEY_ID}" > /dev/null
-  credhub set -t password -n /bosh-${ENV}/cf/blobstore_secret_access_key -w "${BLOBSTORE_SECRET_ACCESS_KEY}" > /dev/null
   set -x
 
   if [ $DEBUG ]; then
