@@ -8,10 +8,14 @@ function create_email_body() {
   build=$(cat metadata/build_name)
 
   echo "URL: ${url}/teams/${team}/pipelines/${pipeline}/jobs/${job}/builds/${build}" > email/${FILE}
+  echo "" >> email/${FILE}
   echo "Status: ${STATUS}" >> email/${FILE}
-  echo "${EXTRA_CONTENT}" >> email/${FILE}
+  echo "" >> email/${FILE}
   echo "cf-deployment: $(cat cf-deployment/.git/ref)" >> email/${FILE}
+  echo "" >> email/${FILE}
   echo "cf-deployment-concourse-tasks: $(cat cf-deployment-concourse-tasks/.git/ref)" >> email/${FILE}
+  echo "" >> email/${FILE}
+  echo "${EXTRA_CONTENT}" >> email/${FILE}
   cat email/${FILE}
 }
 
