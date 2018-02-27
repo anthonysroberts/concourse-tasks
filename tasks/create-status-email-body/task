@@ -1,0 +1,20 @@
+#!/bin/bash -eux
+
+function create_email_body() {
+  url=$(cat metadata/atc_external_url)
+  team=$(cat metadata/build_team_name)
+  pipeline=$(cat metadata/build_pipeline_name)
+  job=$(cat metadata/build_job_name)
+  build=$(cat metadata/build_name)
+
+  echo "URL: ${url}/teams/${team}/pipelines/${pipeline}/jobs/${job}/builds/${build}" >> email/${FILE}
+  echo "Status: ${STATUS}" > email/${FILE}
+  echo "${EXTRA_CONTENT}" >> email/${FILE}
+  #echo "Type: PaaS" >> email/${FILE}
+  #echo "cf-deployment: $(cat cf-deployment/.git/ref)" >> email/${FILE}
+  #echo "cf-deployment-concourse-tasks: $(cat cf-deployment-concourse-tasks/.git/ref)" >> email/${FILE}
+  cat email/${FILE}
+
+}
+
+create_email_body
