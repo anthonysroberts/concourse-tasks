@@ -27,14 +27,14 @@ function login_to_credhub() {
 function set_value_in_credhub() {
   echo "Setting ${SECRET_PATH} as ${SECRET_TYPE}..."
   set +x
-  #if [ "${TYPE}" == "value" ]; then
-  #  credhub set -t value -n ${PATH} -v "${VALUE}" > /dev/null
-  #elif [ "${TYPE}" == "password" ]; then
-  #  credhub set -t password -n ${PATH} -w "${VALUE}" > /dev/null
-  #else 
-  #  echo "Unknown ${TYPE} for ${PATH}"
-  #  exit 1
-  #fi
+  if [ "${SECRET_TYPE}" == "value" ]; then
+    credhub set -t value -n ${SECRET_PATH} -v "${SECRET_VALUE}" > /dev/null
+  elif [ "${SECRET_TYPE}" == "password" ]; then
+    credhub set -t password -n ${SECRET_PATH} -w "${SECRET_VALUE}" > /dev/null
+  else 
+    echo "Unknown ${SECRET_TYPE} for ${SECRET_PATH}"
+    exit 1
+  fi
   set -x
 }
 
