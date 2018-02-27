@@ -16,6 +16,6 @@ run:
 
 params:
   BBL_STATE_DIR: bbl-state
-  PATH:
-  TYPE:
-  VALUE:
+  SECRET_PATH:
+  SECRET_TYPE:
+  SECRET_VALUE:
