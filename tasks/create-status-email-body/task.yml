@@ -8,6 +8,7 @@ image_resource:
     tag: v4.12.0
 
 inputs:
+- name: concourse-tasks
 - name: metadata
 - name: cf-deployment
 - name: cf-deployment-concourse-tasks
