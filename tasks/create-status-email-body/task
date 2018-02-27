@@ -7,14 +7,12 @@ function create_email_body() {
   job=$(cat metadata/build_job_name)
   build=$(cat metadata/build_name)
 
-  echo "URL: ${url}/teams/${team}/pipelines/${pipeline}/jobs/${job}/builds/${build}" >> email/${FILE}
-  echo "Status: ${STATUS}" > email/${FILE}
+  echo "URL: ${url}/teams/${team}/pipelines/${pipeline}/jobs/${job}/builds/${build}" > email/${FILE}
+  echo "Status: ${STATUS}" >> email/${FILE}
   echo "${EXTRA_CONTENT}" >> email/${FILE}
-  #echo "Type: PaaS" >> email/${FILE}
-  #echo "cf-deployment: $(cat cf-deployment/.git/ref)" >> email/${FILE}
-  #echo "cf-deployment-concourse-tasks: $(cat cf-deployment-concourse-tasks/.git/ref)" >> email/${FILE}
+  echo "cf-deployment: $(cat cf-deployment/.git/ref)" >> email/${FILE}
+  echo "cf-deployment-concourse-tasks: $(cat cf-deployment-concourse-tasks/.git/ref)" >> email/${FILE}
   cat email/${FILE}
-
 }
 
 create_email_body
