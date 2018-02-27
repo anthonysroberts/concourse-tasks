@@ -9,12 +9,14 @@ image_resource:
 
 inputs:
 - name: metadata
+- name: cf-deployment
+- name: cf-deployment-concourse-tasks
 
 outputs:
 - name: email
 
 run:
-  path: concourse-tasks/tasks/create-status-email-bosy/task
+  path: concourse-tasks/tasks/create-status-email-body/task
 
 params:
   STATUS: success
