@@ -15,6 +15,10 @@ function create_email_body() {
   echo "" >> email/${FILE}
   echo "cf-deployment-concourse-tasks: $(cat cf-deployment-concourse-tasks/.git/ref)" >> email/${FILE}
   echo "" >> email/${FILE}
+  echo "start-time: $(cat timings/start_time)" >> email/${FILE}
+  echo "" >> email/${FILE}
+  echo "end-time: $(cat timings/end_time)" >> email/${FILE}
+  echo "" >> email/${FILE}
   echo "${EXTRA_CONTENT}" >> email/${FILE}
   cat email/${FILE}
 }
