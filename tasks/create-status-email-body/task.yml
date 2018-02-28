@@ -10,7 +10,8 @@ image_resource:
 inputs:
 - name: concourse-tasks
 - name: metadata
-- name: timings
+- name: start_time
+- name: end_time
 - name: cf-deployment
 - name: cf-deployment-concourse-tasks
 
