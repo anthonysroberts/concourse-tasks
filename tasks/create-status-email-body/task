@@ -7,8 +7,6 @@ function create_email_body() {
   job=$(cat metadata/build_job_name)
   build=$(cat metadata/build_name)
 
-  ls -al timings 
-
   echo "URL: ${url}/teams/${team}/pipelines/${pipeline}/jobs/${job}/builds/${build}" > email/${FILE}
   echo "" >> email/${FILE}
   echo "Status: ${STATUS}" >> email/${FILE}
