@@ -17,6 +17,7 @@ function close_bbl_ssh_connection() {
 
 function deploy() {
   local arguments
+  arguments=""
   for op in ${OPS_FILES}
   do
     arguments="${arguments} -o ${op}"
