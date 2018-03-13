@@ -16,10 +16,17 @@ function close_bbl_ssh_connection() {
 }
 
 function deploy() {
+  local arguments
+  for op in ${OPS_FILES}
+  do
+    arguments="${arguments} -o ${op}"
+  done
+
   bosh \
     -n \
     -d ${NAME} \
     deploy \
+    ${arguments} \
     bosh-repo/${MANIFEST_FILE}
   set -x
 }
