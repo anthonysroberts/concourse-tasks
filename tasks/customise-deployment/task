@@ -72,6 +72,6 @@ function main() {
   create_resources
 }
 
-trap "commit_bbl_state_dir ${PWD} \'${GIT_COMMIT_MESSAGE}\'" EXIT
+trap "commit_bbl_state_dir ${PWD} '${GIT_COMMIT_MESSAGE}'" EXIT
 
 main ${PWD}
