@@ -16,6 +16,7 @@ function create_resources() {
   pushd "env-repo/${BBL_STATE_DIR}"
 
     # terraform
+    rm -rf terraform
     mkdir -p terraform
     if [ -n "${TERRAFORM_CUSTOMISATIONS}" ]; then
       for CUSTOMISATION in ${TERRAFORM_CUSTOMISATIONS}; do
@@ -23,6 +24,7 @@ function create_resources() {
       done
     fi 
 
+    rm -rf cloud-config
     mkdir -p cloud-config
     if [ -n "${CLOUDCONFIG_CUSTOMISATIONS}" ]; then
       for CUSTOMISATION in ${CLOUDCONFIG_CUSTOMISATIONS}; do
