@@ -29,19 +29,6 @@ function create_resources() {
         cp ${root_dir}/cloud-config-customisations/${CUSTOMISATION} cloud-config/
       done
     fi
-
-    if [ -n "${CERTIFICATE}" -a -n "${KEY}" ]; then
-      mkdir -p vars
-      if [ ! -f vars/terraform.tfvars ]; then
-        touch vars/terraform.tfvars
-      fi
-      if [ $(grep -c '^certificate=' vars/terraform.tfvars) -lt 1 ]; then
-        echo "certificate=${CERTIFICATE}" >> vars/terraform.tfvars
-      fi
-      if [ $(grep -c '^key=' vars/terraform.tfvars) -lt 1 ]; then
-        echo "key=${KEY}" >> vars/terraform.tfvars
-      fi
-    fi
     
   popd
 }
