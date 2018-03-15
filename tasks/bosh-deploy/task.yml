@@ -20,3 +20,4 @@ params:
   MANIFEST_FILE:
   NAME:
   OPS_FILES:
+  VARS_FILES:
