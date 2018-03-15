@@ -23,11 +23,19 @@ function deploy() {
     arguments="${arguments} -o ${op}"
   done
 
+  local files
+  files=""
+  for var_file in ${VARS_FILES}
+  do
+    files="${files} -l ${var_file}"
+  done
+
   bosh \
     -n \
     -d ${NAME} \
     deploy \
     ${arguments} \
+    ${files} \
     bosh-repo/${MANIFEST_FILE}
   set -x
 }
