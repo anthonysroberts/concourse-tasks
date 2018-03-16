@@ -21,3 +21,4 @@ params:
   NAME:
   OPS_FILES:
   VARS_FILES:
+  VARS:
