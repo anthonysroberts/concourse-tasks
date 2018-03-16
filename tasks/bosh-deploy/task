@@ -30,12 +30,20 @@ function deploy() {
     files="${files} -l ${var_file}"
   done
 
+  local vars
+  vars=""
+  for var in ${VARS}
+  do
+    vars="${vars} -v ${var}"
+  done
+
   bosh \
     -n \
     -d ${NAME} \
     deploy \
     ${arguments} \
     ${files} \
+    ${vars} \
     bosh-repo/${MANIFEST_FILE}
   set -x
 }
