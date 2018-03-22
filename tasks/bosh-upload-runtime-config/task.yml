@@ -46,6 +46,10 @@ params:
   # - Key content or path to the file containing credentials downloaded from GCP
   # - Path is relative to the BBL_STATE_DIR specified a
 
-  RUNTIME_CONFIG:    
+  RUNTIME_CONFIG:
   # - Required
   # - Filepath or URL to upload
+
+  VARS:
+  # - Optional
+  # - vars list
