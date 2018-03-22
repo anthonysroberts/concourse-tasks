@@ -16,10 +16,18 @@ function close_bbl_ssh_connection() {
 }
 
 function update_runtime_config() {
+  local vars
+  vars=""
+  for var in ${VARS}
+  do
+    vars="${vars} -v ${var}"
+  done
+
   bosh \
     -n \
     update-runtime-config \
-    ops-files/${RUNTIME_CONFIG}
+    ops-files/${RUNTIME_CONFIG} \
+    ${vars}
   set -x
 }
 
