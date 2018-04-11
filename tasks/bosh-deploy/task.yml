@@ -5,12 +5,12 @@ image_resource:
   type: docker-image
   source:
     repository: relintdockerhubpushbot/cf-deployment-concourse-tasks
-    tag: v4.12.0
+    tag: v5.0.0
 
 inputs:
 - name: concourse-tasks  # - This repo
 - name: bosh-repo
-- name: env-repo  # - The env repo containing the Director's bbl state dir
+- name: bbl-state  # - The env repo containing the Director's bbl state dir
 
 run:
   path: concourse-tasks/tasks/bosh-deploy/task

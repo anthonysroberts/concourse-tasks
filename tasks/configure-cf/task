@@ -9,7 +9,7 @@ function close_bbl_ssh_connection() {
 
 function setup_bosh_env_vars() {
   set +ux
-  pushd env-repo/"${BBL_STATE_DIR}"
+  pushd bbl-state/"${BBL_STATE_DIR}"
     eval "$(bbl print-env)"
   popd
   set -ux
@@ -25,8 +25,8 @@ function login_to_credhub() {
 }
 
 function get_credhub_login_details() {
-  VAR_STORE=env-repo/${BBL_STATE_DIR}/vars/director-vars-store.yml
-  STATE=env-repo/${BBL_STATE_DIR}/vars/terraform.tfstate
+  VAR_STORE=bbl-state/${BBL_STATE_DIR}/vars/director-vars-store.yml
+  STATE=bbl-state/${BBL_STATE_DIR}/vars/terraform.tfstate
   bosh int ${VAR_STORE} --path /credhub_tls/certificate > credhub.cert
   bosh int ${VAR_STORE} --path /uaa_ssl/certificate > uaa.cert
 }
