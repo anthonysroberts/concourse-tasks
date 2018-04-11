@@ -2,7 +2,7 @@
 
 function setup_bosh_env_vars() {
   set +ux
-  pushd env-repo/"${BBL_STATE_DIR}"
+  pushd bbl-state/"${BBL_STATE_DIR}"
     eval "$(bbl print-env)"
   popd
   set -ux

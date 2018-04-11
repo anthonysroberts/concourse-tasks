@@ -7,13 +7,13 @@ image_resource:
     repository: relintdockerhubpushbot/bosh-cli
 
 inputs:
-- name: env-repo
+- name: bbl-state
 - name: concourse-tasks
 - name: terraform-customisations
 - name: cloud-config-customisations
 
 outputs:
-- name: updated-env-repo
+- name: updated-bbl-state
 
 run:
   path: concourse-tasks/tasks/customise-deployment/task
