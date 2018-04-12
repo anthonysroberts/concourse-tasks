@@ -18,17 +18,13 @@ function setup_bosh_env_vars() {
 function login_to_credhub() {
   set +x
   echo "Connecting to ${CREDHUB_SERVER}"
-  export https_proxy=${BOSH_ALL_PROXY}
-  credhub api --server ${CREDHUB_SERVER} --ca-cert=uaa.cert --ca-cert=credhub.cert
-  credhub login -u ${CREDHUB_USER} -p ${CREDHUB_PASSWORD}
+  credhub api --server ${CREDHUB_SERVER}
+  credhub login
   set -x
 }
 
 function get_terraform_outputs() {
-  VAR_STORE=bbl-state/${BBL_STATE_DIR}/vars/director-vars-store.yml
   STATE=bbl-state/${BBL_STATE_DIR}/vars/terraform.tfstate
-  bosh int ${VAR_STORE} --path /credhub_tls/certificate > credhub.cert
-  bosh int ${VAR_STORE} --path /uaa_ssl/certificate > uaa.cert
   
   set +x
   CF_HOST=$(terraform output -state=${STATE} cf_db_host)
@@ -39,7 +35,7 @@ function get_terraform_outputs() {
   ROUTINGAPI_PASSWORD=$(terraform output -state=${STATE} routing_api-password)
   SILKCONTROLLER_PASSWORD=$(terraform output -state=${STATE} silk_controller-password)
   LOCKET_PASSWORD=$(terraform output -state=${STATE} locket-password)
-  ENV_ID=$(terraform output -state=${STATE} bosh_director_tag_name | sed -e 's/-bosh-director//')
+  ENV_ID=$(terraform output -state=${STATE} director__tags | sed -e 's/-bosh-director//')
   set -x
   echo ${ENV_ID}
 }

@@ -18,9 +18,8 @@ function setup_bosh_env_vars() {
 function login_to_credhub() {
   set +x
   echo "Connecting to ${CREDHUB_SERVER}"
-  export https_proxy=${BOSH_ALL_PROXY}
   credhub api --server ${CREDHUB_SERVER}
-  credhub login -u ${CREDHUB_USER} -p ${CREDHUB_PASSWORD}
+  credhub login
   set -x
 }
 
