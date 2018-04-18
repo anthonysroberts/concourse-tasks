@@ -49,9 +49,10 @@ function get_cf_login_details() {
  
   cf set-org-role ${CF_USER} ${CF_ORG} OrgManager
 
-  #cf create-domain servicedeliverygcp@monitise.com ${GCP_PROJECT}.${DOMAIN}
-  cf update-quota default -m ${CF_QUOTA}
+  CELLS=$(bosh instances | grep diego-cell | wc -l)
+  SPACE_REQUIRED=$(bc -l <<< "$CELLS*$SPACE_PER_CELL") 
 
+  cf update-quota default -m ${SPACE_REQUIRED}g
   #set -x
 }
 
