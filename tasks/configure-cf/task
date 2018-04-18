@@ -50,7 +50,7 @@ function get_cf_login_details() {
   cf set-org-role ${CF_USER} ${CF_ORG} OrgManager
 
   CELLS=$(bosh instances | grep diego-cell | wc -l)
-  SPACE_REQUIRED=$(bc -l <<< "$CELLS*$SPACE_PER_CELL") 
+  SPACE_REQUIRED=$(expr $CELLS \* $SPACE_PER_CELL) 
 
   cf update-quota default -m ${SPACE_REQUIRED}g
   #set -x
